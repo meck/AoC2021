@@ -1,0 +1,103 @@
+cabal-version: 2.4
+name: AoC
+version: 0.0.0
+license: MIT
+license-file: LICENSE
+copyright: 2021 Meck
+maintainer: Johan@meck.se
+author: Meck
+synopsis: Solutions to advent of code 2021
+description:
+    Solutions to advent of code 2021
+build-type: Simple
+extra-doc-files: README.md
+                 CHANGELOG.md
+
+common shared-properties
+    default-language: Haskell2010
+    build-depends:
+        base
+    ghc-options:
+        -Wall -Wincomplete-uni-patterns
+        -Wincomplete-record-updates -Wcompat -Widentities
+        -Wredundant-constraints -fhide-source-paths -Wmissing-export-lists
+        -Wpartial-fields
+
+library
+    import: shared-properties
+    exposed-modules:
+        AoC
+        AoC.Input
+        Day1
+        Day2
+        Day3
+        Day4
+        Day5
+        Day6
+        Day7
+        Day8
+        Day9
+        Day10
+        Day11
+        Day12
+        Day13
+        Day14
+        Day15
+        Day16
+        Day17
+        Day18
+        Day19
+        Day20
+        Day21
+        Day22
+        Day23
+        Day24
+        Day25
+    other-modules:
+        AoC.Util
+        AoC.Parsing
+        AoC.Queue
+    hs-source-dirs: src
+    build-depends:
+        text,
+        containers,
+        split,
+        mtl,
+        vector,
+        megaparsec,
+        parser-combinators,
+        gloss,
+        deepseq,
+        http-client,
+        http-client-tls,
+        bytestring,
+        directory,
+        case-insensitive,
+        safe,
+
+executable AoC
+    import: shared-properties
+    main-is: Main.hs
+    hs-source-dirs: app
+    build-depends:
+        AoC,
+
+test-suite AoC-test
+    import: shared-properties
+    type: exitcode-stdio-1.0
+    main-is: Spec.hs
+    hs-source-dirs: test
+    build-depends:
+        tasty,
+        tasty-hunit,
+        text,
+        AoC
+
+benchmark AoC-benchmark
+    import: shared-properties
+    type: exitcode-stdio-1.0
+    main-is: Main.hs
+    hs-source-dirs: benchmark
+    build-depends:
+        gauge,
+        AoC

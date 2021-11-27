@@ -1,0 +1,10 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "AoC"
+    - path: "app"
+      component: "AoC:exe:AoC"
+    - path: "test"
+      component: "AoC:test:AoC-test"
+    - path: "benchmark"
+      component: "AoC:benchmark:AoC-benchmark"
