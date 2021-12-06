@@ -16,6 +16,7 @@ import Data.Char (isDigit)
 import Network.HTTP.Client
 import Network.HTTP.Client.TLS
 import System.Directory (createDirectoryIfMissing)
+import GHC.IO (unsafeInterleaveIO)
 
 isValid :: ByteString -> Bool
 isValid bs =
@@ -24,7 +25,7 @@ isValid bs =
       || C8.isPrefixOf "Puzzle inputs differ by user." bs
 
 getInput :: String -> IO (Maybe String)
-getInput dayStr = liftA2 (<|>) fromCache fromWeb
+getInput dayStr = liftA2 (<|>) fromCache (unsafeInterleaveIO fromWeb)
   where
     dayNumber :: Int
     dayNumber = read $ filter isDigit dayStr

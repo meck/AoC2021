@@ -4,7 +4,7 @@ usage() {
         "  $0 solve DAY\n" \
         "  $0 test DAY\n" \
         "  $0 bench DAY\n" \
-        "  $0 hooge DAY\n" >&2
+        "  $0 hooge" >&2
 }
 
 if [ -z "$1" ]; then
@@ -42,7 +42,7 @@ case "$1" in
         ;;
 
     "hoogle")
-        hoogle server --local &
+        hoogle server --local
         ;;
 
 esac
