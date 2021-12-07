@@ -11,8 +11,8 @@ import qualified Text.Megaparsec.Char.Lexer as L
 type Parser = Parsec Void String
 
 -- Run Parser until eof
-run :: (VisualStream s, TraversableStream s, ShowErrorComponent e) => Parsec e s p -> s -> p
-run p s = case runParser (p <* eof) "" s of
+run :: Parser p -> String -> p
+run p s = case runParser (p <* space <* eof) "" s of
   (Left err) -> error $ errorBundlePretty err
   (Right res) -> res
 
