@@ -3,9 +3,7 @@
 
 module Day6 (day06a, day06b) where
 
-import AoC.Parsing (int, run)
-import Control.Applicative.Combinators (sepBy1)
-import Text.Megaparsec.Char (char)
+import AoC.Parsing (run, intList)
 import Data.List (iterate')
 
 occurences :: [Int] -> [Int]
@@ -21,7 +19,7 @@ solve :: Int -> [Int] -> Int
 solve days input = sum $ iterate' step (occurences input) !! days
 
 day06a :: String -> String
-day06a = show . solve 80 . run (sepBy1 int (char ','))
+day06a = show . solve 80 . run intList
 
 day06b :: String -> String
-day06b = show . solve 256 . run (sepBy1 int (char ','))
+day06b = show . solve 256 . run intList

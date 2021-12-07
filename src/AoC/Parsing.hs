@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens) where
+module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens, intList) where
 
 import Data.Void (Void)
 import Text.Megaparsec
@@ -44,3 +44,7 @@ hex = lexeme L.hexadecimal
 -- No space between sign
 signedInt :: Parser Int
 signedInt = L.signed (pure ()) int
+
+-- Comma separated list of Ints
+intList :: Parser [Int]
+intList = sepBy1 int (char ',')

@@ -1,9 +1,7 @@
 module Day7 (day07a, day07b) where
 
-import AoC.Parsing (int, run)
-import Control.Applicative.Combinators (sepBy)
+import AoC.Parsing (run, intList)
 import Data.List (sort)
-import Text.Megaparsec.Char (char)
 
 solveA :: Integral a => [a] -> a
 solveA xs = sum $ abs . (-) median <$> xs
@@ -20,7 +18,7 @@ solveB xs = min higherAve lowerAve
     lowerAve = cost $ floor average
 
 day07a :: String -> String
-day07a = show . solveA . run (sepBy int (char ','))
+day07a = show . solveA . run intList
 
 day07b :: String -> String
-day07b = show . solveB . run (sepBy int (char ','))
+day07b = show . solveB . run intList

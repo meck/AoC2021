@@ -2,10 +2,10 @@
 
 module Day4 (day04a, day04b) where
 
-import AoC.Parsing (Parser, int, run)
+import AoC.Parsing (Parser, int, intList, run)
 import Control.Applicative.Combinators (optional, sepBy1, some)
 import Data.List (foldl', transpose)
-import Text.Megaparsec.Char (char, eol, hspace, space1)
+import Text.Megaparsec.Char (eol, hspace, space1)
 
 data Marker = Unmarked | Marked deriving (Eq, Show)
 
@@ -52,7 +52,7 @@ winnerScores bbs ms = fst (foldl' stepBords ([], bbs) ms)
 
 parseInput :: Parser ([BingoBoard], [Int])
 parseInput = do
-  m <- sepBy1 int (char ',') <* some space1
+  m <- intList <* some space1
   bbs <- sepBy1 parseBoard eol
   pure (bbs, m)
 
