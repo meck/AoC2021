@@ -8,6 +8,6 @@ Add session key to `sessionKey.txt` to download puzzle input automatically.
 
 Exercises numbered `1a` - `25b`, to run `1a`:
 
-- solve puzzle `./run solve 1a`
-- test with file watch `./run test 1a`
-- benchmark with file watch `./run bench 1a`
+- solve puzzle `aoc solve 1a`
+- test with file watch `aoc test 1a`
+- benchmark with file watch `aoc bench 1a`
