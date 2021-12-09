@@ -17,7 +17,8 @@ module AoC.Util
     genGrid,
     mkCordsGrid,
     firstEq,
-    neighbourCords,
+    neighbours,
+    cardinalNeighbours,
     occurencesLookup,
   )
 where
@@ -33,6 +34,7 @@ import Data.List
     maximumBy,
     sort,
     sortBy,
+    transpose,
   )
 import Data.List.Split (splitOn)
 import qualified Data.Map.Lazy as M
@@ -104,22 +106,33 @@ drawCords def f m = unlines $ fmap (f . flip (M.findWithDefault def) m) <$> cs
     cs = [[(x, y) | x <- [xMin .. xMax]] | y <- [yMin .. yMax]]
 
 mkCordsGrid :: (a -> b) -> [[a]] -> M.Map (Int, Int) b
-mkCordsGrid f inputs = f <$> M.fromList (cords `zip` concat inputs)
+mkCordsGrid f inputs = f <$> M.fromList (cords `zip` concat (transpose inputs))
   where
-    cords = [(x, y) | x <- [0 .. length (head inputs)], y <- [0 .. length inputs]]
+    cords = [(x, y) | x <- [0 .. maxX], y <- [0 .. maxY]]
+    maxY = pred $ length inputs
+    maxX = pred $ length $ head inputs
 
--- Neighbours including diagonals
-neighbourCords :: [(Int, Int)]
-neighbourCords =
-  [ (-1, -1),
-    (0, -1),
-    (1, -1),
-    (-1, 0),
-    (1, 0),
-    (-1, 1),
-    (0, 1),
-    (1, 1)
-  ]
+neighbours :: (Int, Int) -> [(Int, Int)]
+neighbours c =
+  (c +^)
+    <$> [ (-1, -1),
+          (0, -1),
+          (1, -1),
+          (-1, 0),
+          (1, 0),
+          (-1, 1),
+          (0, 1),
+          (1, 1)
+        ]
+
+cardinalNeighbours :: (Int, Int) -> [(Int, Int)]
+cardinalNeighbours c =
+  (c +^)
+    <$> [ (0, -1),
+          (-1, 0),
+          (1, 0),
+          (0, 1)
+        ]
 
 -- A lookup table with the number of
 -- occurrences of the items
