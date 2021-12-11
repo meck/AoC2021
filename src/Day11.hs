@@ -29,7 +29,7 @@ step (nFlash, i) = (M.size flashed + nFlash, reset)
     reset = notFlashed <> M.map (const 0) flashed
 
 allLit :: Octos -> Bool
-allLit = (==0) . M.foldr' (+) 0
+allLit = (== 0) . M.foldr' (+) 0
 
 day11a :: String -> String
 day11a = show . fst . (!! 100) . iterate step . (0,) . run intGrid

@@ -1,5 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE GADTs #-}
+{-# LANGUAGE TypeFamilies #-}
+
 module Day10 (day10a, day10b) where
 
 import Control.Monad.Combinators

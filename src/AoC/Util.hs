@@ -10,7 +10,7 @@ module AoC.Util
     unDigits,
     Data.Bifunctor.bimap,
     bimap',
-    Cord ,
+    Cord,
     (-^),
     (+^),
     groupSortOn,
@@ -115,7 +115,7 @@ mkCordsGrid f inputs = f <$> M.fromList (cords `zip` concat (transpose inputs))
     maxY = pred $ length inputs
     maxX = pred $ length $ head inputs
 
-neighbours :: (Int, Int) -> [(Int, Int)]
+neighbours :: Cord -> [Cord]
 neighbours c =
   (c +^)
     <$> [ (-1, -1),
@@ -128,7 +128,7 @@ neighbours c =
           (1, 1)
         ]
 
-cardinalNeighbours :: (Int, Int) -> [(Int, Int)]
+cardinalNeighbours :: Cord -> [Cord]
 cardinalNeighbours c =
   (c +^)
     <$> [ (0, -1),
