@@ -2,7 +2,10 @@
 
 module Main (main) where
 
-import AoC
+import Advent
+import AoC (aocYear, solutionLookup)
+import AoC.Api (prettyDay)
+import Control.Arrow (first)
 import Data.Bifunctor (bimap)
 import qualified Data.Text as T
 import Data.Text.IO (readFile)
@@ -10,9 +13,9 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Prelude hiding (readFile)
 
-getTests :: String -> IO [(String, String)]
-getTests name = do
-  solu <- readFile $ "test-data/" ++ name ++ ".txt"
+getTests :: (Day, Part) -> IO [(String, String)]
+getTests (d, p) = do
+  solu <- readFile $ "test-data/" <> show (dayInt d) <> [partChar p] <> ".txt"
   pure $ case solu of
     "" -> []
     _ ->
@@ -30,4 +33,9 @@ makeTest ((name, solu), tests) =
 main :: IO ()
 main = do
   testFiles <- sequenceA $ getTests . fst <$> solutionLookup
-  defaultMain $ testGroup ("AoC " <> show aocYear) $ makeTest <$> zip solutionLookup testFiles
+  defaultMain $
+    testGroup ("AoC " <> show aocYear) $
+      makeTest
+        <$> zip
+          (first (\(d, p) -> prettyDay (d, Just p)) <$> solutionLookup)
+          testFiles

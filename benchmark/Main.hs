@@ -1,14 +1,14 @@
-{-# LANGUAGE LambdaCase #-}
-
 module Main (main) where
 
+import Advent
 import AoC
-import AoC.Input (getInput)
-import Data.Maybe (fromMaybe)
+import AoC.Api (getInput)
 import Criterion.Main
+import Data.Either (fromRight)
 
-makeTest :: (String, String -> b) -> Benchmark
-makeTest (name, f) = env (fromMaybe "" <$> getInput name) $ \ inp -> bench name $ whnf f inp
+makeTest :: ((Day, Part), String -> b) -> Benchmark
+makeTest ((d, p), f) = do
+  env (fromRight "" <$> getInput d) $ \inp -> bench (show (dayInt d) <> [partChar p]) $ whnf f inp
 
 main :: IO ()
 main = defaultMain $ makeTest <$> solutionLookup

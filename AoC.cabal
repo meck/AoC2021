@@ -16,6 +16,7 @@ extra-doc-files: README.md
 common shared-properties
     default-language: Haskell2010
     build-depends:
+        advent-of-code-api,
         base
     ghc-options:
         -Wall -Wincomplete-uni-patterns
@@ -27,7 +28,7 @@ library
     import: shared-properties
     exposed-modules:
         AoC
-        AoC.Input
+        AoC.Api
         Day1
         Day2
         Day3
@@ -59,21 +60,18 @@ library
         AoC.Queue
     hs-source-dirs: src
     build-depends:
-        text,
-        containers,
-        split,
-        mtl,
-        vector,
-        megaparsec,
-        parser-combinators,
-        gloss,
-        deepseq,
-        http-client,
-        http-client-tls,
         bytestring,
+        containers,
+        deepseq,
         directory,
-        case-insensitive,
+        gloss,
+        megaparsec,
+        mtl,
+        parser-combinators,
         safe,
+        split,
+        text,
+        vector,
 
 executable AoC
     import: shared-properties
@@ -88,10 +86,10 @@ test-suite AoC-test
     main-is: Spec.hs
     hs-source-dirs: test
     build-depends:
+        AoC,
         tasty,
         tasty-hunit,
-        text,
-        AoC
+        text
 
 benchmark AoC-benchmark
     import: shared-properties
@@ -99,5 +97,5 @@ benchmark AoC-benchmark
     main-is: Main.hs
     hs-source-dirs: benchmark
     build-depends:
-        criterion,
-        AoC
+        AoC,
+        criterion
