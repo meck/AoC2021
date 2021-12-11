@@ -10,6 +10,7 @@ module AoC.Util
     unDigits,
     Data.Bifunctor.bimap,
     bimap',
+    Cord ,
     (-^),
     (+^),
     groupSortOn,
@@ -68,6 +69,8 @@ unDigits = foldl ((+) . (10 *)) 0
 
 digits :: Integral n => n -> [n]
 digits = reverse . digitsR
+
+type Cord = (Int, Int)
 
 (+^) :: (Num a, Num b) => (a, b) -> (a, b) -> (a, b)
 (+^) (ax, ay) (bx, by) = (ax + bx, ay + by)

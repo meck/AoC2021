@@ -1,7 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens, intList) where
+module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens, intList, digits, intGrid) where
 
+import AoC.Util (Cord, mkCordsGrid)
+import Data.Char (digitToInt)
+import Data.Map (Map)
 import Data.Void (Void)
 import Text.Megaparsec
 import Text.Megaparsec.Char
@@ -48,3 +51,11 @@ signedInt = L.signed (pure ()) int
 -- Comma separated list of Ints
 intList :: Parser [Int]
 intList = sepBy1 int (char ',')
+
+-- Single digit Ints
+digits :: Parser [Int]
+digits = some $ digitToInt <$> digitChar
+
+-- A grid of single digit Ints
+intGrid :: Parser (Map Cord Int)
+intGrid = mkCordsGrid id <$> sepNL digits
