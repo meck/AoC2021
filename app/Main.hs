@@ -15,7 +15,7 @@ solvePart dp@(d, p) = do
     (Left e) -> die e
     (Right i) -> do
       let sol = fromJust $ dp `lookup` solutionLookup
-      putStrLn $ ("Solution to day " <> prettyDay (d, Just p) <> " is: ") <> sol i
+      putStrLn $ ("Solution to day " <> prettyDay (d, Just p) <> " is:\n") <> sol i
 
 main :: IO ()
 main = do

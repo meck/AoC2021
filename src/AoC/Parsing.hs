@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens, intList, digits, intGrid) where
+module AoC.Parsing (Parser, run, lexeme, sepNL, int, hex, signedInt, symbol, parens, intList, digits, intGrid, cord) where
 
 import AoC.Util (Cord, mkCordsGrid)
 import Data.Char (digitToInt)
@@ -59,3 +59,10 @@ digits = some $ digitToInt <$> digitChar
 -- A grid of single digit Ints
 intGrid :: Parser (Map Cord Int)
 intGrid = mkCordsGrid id <$> sepNL digits
+
+cord :: Parser Cord
+cord = do
+  x <- int
+  _ <- char ','
+  y <- int
+  pure (x, y)
