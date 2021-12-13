@@ -1,11 +1,12 @@
 module Day13 (day13a, day13b) where
 
+import Advent.OCR (unsafeParseLetters)
 import AoC.Parsing (Parser, cord, int, run, sepNL)
-import AoC.Util (Cord, drawCords, strip)
+import AoC.Util (Cord)
 import Control.Applicative ((<|>))
+import Control.Arrow (Arrow (second))
 import Data.Functor (($>))
-import Data.List (scanl')
-import qualified Data.Map as M
+import Data.List (foldl')
 import Data.Set (Set)
 import qualified Data.Set as S
 import Text.Megaparsec.Char (char, space, string)
@@ -35,11 +36,8 @@ input = do
   f <- sepNL foldparse
   pure (S.fromList c, f)
 
-printPaper :: Paper -> String
-printPaper s = drawCords '.' id $ M.fromList $ zip (S.toList s) (repeat '#')
-
 day13a :: String -> String
-day13a = show . S.size . (!! 1) . uncurry (scanl' foldPaper) . run input
+day13a = show . S.size . uncurry foldPaper . second head . run input
 
 day13b :: String -> String
-day13b = strip . printPaper . last . uncurry (scanl' foldPaper) . run input
+day13b = unsafeParseLetters . uncurry (foldl' foldPaper) . run input

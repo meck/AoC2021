@@ -60,6 +60,7 @@ library
         AoC.Queue
     hs-source-dirs: src
     build-depends:
+        advent-of-code-ocr,
         bytestring,
         containers,
         deepseq,

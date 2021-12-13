@@ -108,7 +108,7 @@ drawCords def f m = unlines $ fmap (f . flip (M.findWithDefault def) m) <$> cs
     yMax = M.foldrWithKey (\(_, y) _ y' -> max y y') 0 m
     cs = [[(x, y) | x <- [xMin .. xMax]] | y <- [yMin .. yMax]]
 
-mkCordsGrid :: (a -> b) -> [[a]] -> M.Map (Int, Int) b
+mkCordsGrid :: (a -> b) -> [[a]] -> M.Map Cord b
 mkCordsGrid f inputs = f <$> M.fromList (cords `zip` concat (transpose inputs))
   where
     cords = [(x, y) | x <- [0 .. maxX], y <- [0 .. maxY]]
