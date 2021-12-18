@@ -73,6 +73,9 @@ library
         split,
         text,
         vector,
+        monad-dijkstra,
+        unordered-containers,
+        binary-strict,
 
 executable AoC
     import: shared-properties
